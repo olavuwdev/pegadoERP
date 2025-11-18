@@ -5,30 +5,18 @@
                     <!-- Topbar Brand Logo -->
                     <div class="logo-topbar">
                         <a href="index.html" class="logo-dark">
-                            <span class="d-flex align-items-center gap-1">
-                                <span class="avatar avatar-xs rounded-circle text-bg-dark">
-                                    <span class="avatar-title">
-                                        <i data-lucide="sparkles" class="fs-md"></i>
-                                    </span>
-                                </span>
-                                <span class="logo-text text-body fw-bold fs-xl">Vona</span>
-                            </span>
+                            <img src="{{ asset('assets/images/pegadoERP-logo.png') }}" height="50" alt="Logo">
                         </a>
                         <a href="index.html" class="logo-light">
                             <span class="d-flex align-items-center gap-1">
-                                <span class="avatar avatar-xs rounded-circle text-bg-dark">
-                                    <span class="avatar-title">
-                                        <i data-lucide="sparkles" class="fs-md"></i>
-                                    </span>
-                                </span>
-                                <span class="logo-text text-white fw-bold fs-xl">Vona</span>
+                                <img src="{{ asset('assets/images/pegadoERP-logo.png') }}" height="28" alt="Logo">
                             </span>
                         </a>
                     </div>
 
                     <div class="d-lg-none d-flex mx-1">
                         <a href="index.html">
-                            <img src="assets/images/logo-sm.png" height="28" alt="Logo">
+                            <img src="{{ asset('assets/images/pegadoERP-logo.png') }}" height="30" alt="Logo">
                         </a>
                     </div>
 

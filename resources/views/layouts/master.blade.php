@@ -11,6 +11,7 @@
     <meta name="description" content="admin dashboard template on Themeforest. Perfect for building CRM, CMS, project management tools, and custom web apps with clean UI, responsive design, and powerful features.">
     <meta name="keywords" content="Vona, Admin dashboard, Themeforest, HTML template,Shadcn, Bootstrap admin, CRM template, CMS template, responsive admin, web app UI, admin theme, best admin template">
     <meta name="author" content="Coderthemes">
+    @yield('style')
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -213,10 +214,11 @@
     <script src="{{ asset('assets/js/vendors.min.js') }}"></script>
 
     <!-- App js -->
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>ªº
 
     <!-- Dashboard Page js -->
     <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
+    @yield('scripts')
 
 </body>
 
