@@ -4,11 +4,18 @@
     <div class="container-fluid" style="margin-top: 20px;">
 
          <div class="card">
-                            <div class="card-header justify-content-between">
-                                <h5 class="card-title">Basic Wizard</h5>
-                                <span class="badge badge-soft-success badge-label fs-xxs py-1">Exclusive</span>
-                            </div>
-
+                        <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
+                                            <a class="navbar-brand" href="#">Adicionar Produto</a>
+                                            <ul class="nav nav-pills">
+                                              
+                                            <ol class="breadcrumb bg-light bg-opacity-50 p-2 mb-0">
+                                                <li class="breadcrumb-item"><a href="#"><i class="ti ti-smart-home"></i>
+                                                        Home</a></li>
+                                                <li class="breadcrumb-item"><a href="#">Produtos</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">Cadastrar</li>
+                                            </ol>
+                                            </ul>
+                                        </nav>
                             <div class="card-body">
 
                                 <div class="ins-wizard" data-wizard>
