@@ -26,31 +26,83 @@
                     <li class="side-nav-item">
                         <a href="ton-ai.html" class="side-nav-link">
                             <span class="menu-icon"><i data-lucide="sparkles"></i></span>
-                            <span class="menu-text"> Ton AI </span>
-                            <span class="badge text-bg-primary">Hot</span>
+                            <span class="menu-text"> Fale com AI </span>
+                            <span class="badge text-bg-danger">New</span>
                         </a>
                     </li>
 
                     <li class="side-nav-item">
                         <a href="calendar.html" class="side-nav-link">
                             <span class="menu-icon"><i data-lucide="calendar"></i></span>
-                            <span class="menu-text" data-lang="calendar"> Calendar </span>
+                            <span class="menu-text" data-lang="calendar"> Agenda </span>
                         </a>
                     </li>
 
-                    <li class="side-nav-item">
-                        <a href="directory.html" class="side-nav-link">
-                            <span class="menu-icon"><i data-lucide="book-user"></i></span>
-                            <span class="menu-text" data-lang="directory"> Directory </span>
-                        </a>
-                    </li>
-
+                    
+{{-- 
                     <li class="side-nav-title mt-2" data-lang="pages-title">Custom Pages</li>
-
+ --}}
+                    <li class="side-nav-item">
+                        <a href="charts.html" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="shopping-cart" class=" fs-24"></i></span>
+                            <span class="menu-text" data-lang="Vendas"> Vendas </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="charts.html" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="boxes" class=" fs-24"></i></span>
+                            <span class="menu-text" data-lang="Compras"> Compras </span>
+                        </a>
+                    </li>
+                    
+                    <li class="side-nav-item">
+                        <a href="charts.html" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="users-round"></i></span>
+                            <span class="menu-text" data-lang="Clientes"> Clientes </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="charts.html" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="box"></i></span>
+                            <span class="menu-text" data-lang="Produtos"> Produtos </span>
+                        </a>
+                    </li>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="charts.html" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="barcode"></i></span>
+                            <span class="menu-text" data-lang="Boletos"> Boletos </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="charts.html" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="banknote-arrow-down"></i></span>
+                            <span class="menu-text" data-lang="Boletos"> Cobranças </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="charts.html" class="side-nav-link">
+                            <span class="menu-icon"><svg style="width: 12px;" viewBox="10 10 175 175" xmlns="http://www.w3.org/2000/svg">
+							<g transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, 0, 0)">
+                                    <path id="path2376_2_" d="M147.04,144.34c-7.02,0-13.6-2.7-18.57-7.67L101.7,109.9c-1.84-1.84-5.18-1.84-7.02,0L67.8,136.78   c-4.97,4.97-11.55,7.67-18.57,7.67h-5.29l34.01,34.01c10.58,10.58,27.85,10.58,38.43,0l34.11-34.11L147.04,144.34L147.04,144.34z" style="fill: #9a9ea5;"></path>
+                                    <path id="path2380_2_" d="M49.12,49.55c7.02,0,13.6,2.7,18.57,7.67L94.57,84.1c1.94,1.94,5.07,1.94,7.02,0l26.88-26.77   c4.97-4.97,11.55-7.67,18.57-7.67h3.24l-34.11-34.11c-10.58-10.58-27.85-10.58-38.43,0L43.72,49.55H49.12L49.12,49.55z" style="fill: #9a9ea5;"></path>
+                                    <path id="path2384_2_" d="M178.45,77.84l-20.62-20.62c-0.43,0.22-0.97,0.32-1.51,0.32h-9.39c-4.86,0-9.61,1.94-12.95,5.4   L107.2,89.71c-2.48,2.48-5.83,3.78-9.07,3.78c-3.35,0-6.59-1.3-9.07-3.78L62.18,62.83c-3.45-3.45-8.2-5.4-12.95-5.4H37.68   c-0.54,0-0.97-0.11-1.4-0.32L15.55,77.84c-10.58,10.58-10.58,27.85,0,38.43l20.62,20.62c0.43-0.22,0.86-0.32,1.4-0.32h11.55   c4.86,0,9.61-1.94,12.95-5.4l26.88-26.88c4.86-4.86,13.39-4.86,18.24,0l26.77,26.77c3.45,3.45,8.2,5.4,12.95,5.4h9.39   c0.54,0,0.97,0.11,1.51,0.32l20.62-20.62C189.03,105.58,189.03,88.42,178.45,77.84" style="fill: #9a9ea5;"></path>
+                                </g>
+						</svg></span>
+                            <span class="menu-text" data-lang="Pix"> Pix </span>
+                        </a>
+                    </li>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="charts.html" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="file-code"></i></span>
+                            <span class="menu-text" data-lang="Boletos"> NFe/ Fiscal </span>
+                        </a>
+                    </li>{{-- 
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#sidebarPages" aria-expanded="false" aria-controls="sidebarPages" class="side-nav-link">
-                            <span class="menu-icon"><i data-lucide="notebook-text"></i></span>
-                            <span class="menu-text" data-lang="pages"> Pages </span>
+                            <span class="menu-icon"><i data-lucide="clipboard-minus"></i></span>
+                            <span class="menu-text" data-lang="pages"> Relatorios </span>
                             <span class="menu-arrow"></span>
                         </a>
                         <div class="collapse" id="sidebarPages">
@@ -410,13 +462,13 @@
                             <span class="menu-icon"><i data-lucide="shield-ban"></i></span>
                             <span class="menu-text" data-lang="disabled-menu"> Disabled Menu </span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
 
             <div class="menu-collapse-box d-none d-xl-block">
                 <button class="button-collapse-toggle">
-                    <i data-lucide="square-chevron-left" class="align-middle flex-shrink-0"></i> <span>Collapse Menu</span>
+                    <i data-lucide="square-chevron-left" class="align-middle flex-shrink-0"></i> <span>Minimizar menu</span>
                 </button>
             </div>
         </div>
