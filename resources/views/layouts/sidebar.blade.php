@@ -62,7 +62,7 @@
                         </a>
                     </li>
                     <li class="side-nav-item">
-                        <a href="charts.html" class="side-nav-link">
+                        <a href="{{ url('/produto') }}" class="side-nav-link">
                             <span class="menu-icon"><i data-lucide="box"></i></span>
                             <span class="menu-text" data-lang="Produtos"> Produtos </span>
                         </a>
