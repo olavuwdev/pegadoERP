@@ -5,6 +5,7 @@
       <!-- Datatables css -->
     <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap5.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('assets/plugins/jquery/App.js') }}"></script>
 @endsection
 @section('content')
 
@@ -12,6 +13,7 @@
 @endsection
 @section('scripts')
         <!-- Datatables js -->
+    
     <script src="{{ asset('assets/plugins/datatables/dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
@@ -25,4 +27,5 @@
     <script src="{{ asset('assets/plugins/datatables/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/buttons.print.min.js') }}"></script>
      <script src="{{ asset('assets/js/pages/datatables-export-data.js') }}"></script>
+
 @endsection
