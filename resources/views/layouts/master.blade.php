@@ -214,7 +214,8 @@
     <script src="{{ asset('assets/js/vendors.min.js') }}"></script>
 
     <!-- App js -->
-    <script src="{{ asset('assets/js/app.js') }}"></script>ªº
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/plugins/mask/jquery.mask.js') }}"></script>
 
     <!-- Dashboard Page js -->
     <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>

@@ -133,7 +133,7 @@
         </div>
 
         <div class="col-12">
-          <button class="btn btn-primary" type="submit">
+          <button class="btn btn-primary" type="button" id="btn-salvar">
             <i class="ti ti-device-floppy me-1"></i> Salvar
           </button>
         </div>
@@ -149,6 +149,40 @@
 
 <script>
 $(document).ready(function() {
+
+    //Enviando o formulário
+    $('#btn-salvar').on('click', function() {
+    
+    
+        //Adicionar um reload no btn e desabilitar enquanto processa
+        $(this).prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Salvando...');
+
+       
+
+        const formData = $('#form-clientes').serialize();
+
+        $.ajax({
+            url: '/clientes', // Ajuste a URL conforme necessário
+            method: 'POST',
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                alert('Cliente salvo com sucesso!');
+                // Redirecionar ou limpar o formulário conforme necessário
+                //habiliar o botão
+                $('#btn-salvar').prop('disabled', false).html('<i class="ti ti-device-floppy me-1"></i> Salvar');
+            },
+            error: function(xhr) {
+                alert('Erro ao salvar o cliente. Tente novamente.');
+                $('#btn-salvar').prop('disabled', false).html('<i class="ti ti-device-floppy me-1"></i> Salvar');
+            }
+        });
+    });
+
+
+
   // 🧩 Máscaras básicas
   $('#telefone').mask('(00) 00000-0000');
   $('#cep').mask('00000-000');
