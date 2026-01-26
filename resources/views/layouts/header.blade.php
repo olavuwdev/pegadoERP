@@ -20,110 +20,8 @@
                         </a>
                     </div>
 
-                    <!-- Sidebar Hover Menu Toggle Button -->
-                    <button class="button-collapse-toggle d-xl-none">
-                        <i data-lucide="menu" class="fs-22 align-middle"></i>
-                    </button>
 
-                    <!-- Topbar Link Item -->
-                    <div class="topbar-item d-none d-lg-flex">
-                        <a href="#!" class="topbar-link btn shadow-none btn-link px-2 disabled"> v1.0.0</a>
-                    </div>
-
-                    <!-- Topbar Link Item -->
-                    <div class="topbar-item d-none d-lg-flex">
-                        <a href="#!" class="topbar-link btn shadow-none btn-link px-2"> Components</a>
-                    </div>
-
-                    <!-- Dropdown -->
-                    <div class="topbar-item">
-                        <div class="dropdown">
-                            <a href="#!" class="topbar-link btn shadow-none btn-link dropdown-toggle drop-arrow-none px-2"
-                               data-bs-toggle="dropdown" data-bs-offset="0,13">
-                                Dropdown <i class="ti ti-chevron-down ms-1"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#!">
-                                    <i class="ti ti-user-plus fs-15 me-1"></i> Add Project Member
-                                </a>
-                                <a class="dropdown-item" href="#!">
-                                    <i class="ti ti-activity fs-15 me-1"></i> View Activity
-                                </a>
-                                <a class="dropdown-item" href="#!">
-                                    <i class="ti ti-settings fs-15 me-1"></i> Settings
-                                </a>
-                            </div> <!-- end dropdown-menu-->
-                        </div> <!-- end dropdown-->
-                    </div> <!-- end topbar item-->
-
-                    <!-- Mega Menu Dropdown -->
-                    <div class="topbar-item d-none d-md-flex">
-                        <div class="dropdown">
-                            <button class="topbar-link btn shadow-none btn-link px-2 dropdown-toggle drop-arrow-none"
-                                    data-bs-toggle="dropdown" data-bs-offset="0,13" type="button" aria-haspopup="false"
-                                    aria-expanded="false">
-                                Mega Menu <i class="ti ti-chevron-down ms-1"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-xxl p-0">
-                                <div class="h-100" style="max-height: 380px;" data-simplebar>
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <div class="p-3">
-                                                <h5 class="fw-semibold fs-sm dropdown-header">Workspace Tools</h5>
-                                                <ul class="list-unstyled">
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">My Dashboard</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Recent Activity</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Notifications
-                                                        Center</a></li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">File Manager</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Calendar View</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="p-3">
-                                                <h5 class="fw-semibold fs-sm dropdown-header">Team Operations</h5>
-                                                <ul class="list-unstyled">
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Team Overview</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Meeting Schedule</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Timesheets</a></li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Feedback Hub</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Resource
-                                                        Allocation</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="p-3">
-                                                <h5 class="fw-semibold fs-sm dropdown-header">Account Settings</h5>
-                                                <ul class="list-unstyled">
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Profile Settings</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Billing & Plans</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Integrations</a>
-                                                    </li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Privacy &
-                                                        Security</a></li>
-                                                    <li><a href="javascript:void(0);" class="dropdown-item">Support Center</a>
-                                                    </li>
-                                                </ul>
-                                            </div> <!-- end dropdown-->
-                                        </div> <!-- end col-->
-                                    </div> <!-- end row-->
-                                </div> <!-- end .h-100-->
-                            </div> <!-- .dropdown-menu-->
-                        </div> <!-- .dropdown-->
-                    </div> <!-- end topbar-item -->
+                    
                 </div> <!-- .d-flex-->
 
                 <div class="d-flex align-items-center gap-2">
@@ -323,11 +221,11 @@
                     </div>
 
                     <!-- Monochrome Mode Button -->
-                    <div class="topbar-item d-none d-sm-flex">
+                    {{-- <div class="topbar-item d-none d-sm-flex">
                         <button class="topbar-link" id="monochrome-mode" type="button">
                             <i data-lucide="palette" class="fs-xxl mode-light-moon"></i>
                         </button>
-                    </div>
+                    </div> --}}
 
                     <!-- User Dropdown -->
                     <div class="topbar-item nav-user">

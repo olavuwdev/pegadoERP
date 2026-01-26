@@ -38,9 +38,9 @@
                         <div class="card">
                             <div class="card-header justify-content-between">
                                 <div class="actions">
-                                    <button class="btn btn-primary" type="button">
+                                    <a href="{{ url('/clientes/create') }}" class="btn btn-primary" type="button">
                                         <i class="ti ti-user-plus me-1"></i> Novo
-                                    </button>
+                                    </a>
                                     {{-- Botao de Excluir selecionados --}}
                                     <button class="btn btn-danger" type="button">
                                         <i class="ti ti-trash me-1"></i> Excluir Selecionados
@@ -60,67 +60,16 @@
                                                     <label class="form-check-label" for="checkbox-select-all"></label>
                                                 </div>
                                             </th>
-                                            <th>Company</th>
-                                            <th>Symbol</th>
-                                            <th>Price</th>
-                                            <th>Change</th>
-                                            <th>Volume</th>
-                                            <th>Market Cap</th>
-                                            <th>Rating</th>
-                                            <th>Status</th>
+                                            <th>ID</th>
+                                            <th>CPF/CNPJ</th>
+                                            <th>Razao Social</th>
+                                            <th>Telefone</th>
+                                            <th>Cidade</th>
+                                            <th>Ativo</th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {{-- Abrir um modal ao clicar na linha --}}
-                                        <tr class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <td class="fs-sm" style="width: 1%;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkbox1">
-                                                    <label class="form-check-label" for="checkbox1"></label>
-                                                </div>
-                                            </td>
-                                            <td>Apple Inc.</td>
-                                            <td>AAPL</td>
-                                            <td>$2109.53</td>
-                                            <td>-0.42%</td>
-                                            <td>48,374,838</td>
-                                            <td>$53.59B</td>
-                                            <td>4.7 ★</td>
-                                            <td><span class="badge badge-label badge-soft-danger">Bearish</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fs-sm" style="width: 1%;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkbox1">
-                                                    <label class="form-check-label" for="checkbox1"></label>
-                                                </div>
-                                            </td>
-                                            <td>Microsoft Corp.</td>
-                                            <td>MSFT</td>
-                                            <td>$450.98</td>
-                                            <td>-2.04%</td>
-                                            <td>26,604,335</td>
-                                            <td>$927.77B</td>
-                                            <td>3.8 ★</td>
-                                            <td><span class="badge badge-label badge-soft-danger">Bearish</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fs-sm" style="width: 1%;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkbox1">
-                                                    <label class="form-check-label" for="checkbox1"></label>
-                                                </div>
-                                            </td>
-                                            <td>Alphabet Inc.</td>
-                                            <td>GOOGL</td>
-                                            <td>$2803.77</td>
-                                            <td>+0.68%</td>
-                                            <td>22,545,332</td>
-                                            <td>$1.88T</td>
-                                            <td>4.6 ★</td>
-                                            <td><span class="badge badge-label badge-soft-success">Bullish</span></td>
-                                        </tr>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -139,35 +88,48 @@
     </div>
 <script>
     $(document).ready(function () {
-  var $table = $('#checkbox-select-data');
+      var $table = $('#checkbox-select-data');
+      var dataTable;
 
-  if ($table.length) {
-    //colocar o datatable em portugues
-    $table.DataTable({
-      columnDefs: [
-        { 
-          orderable: false, 
-          className: 'select-checkbox', 
-          targets: 0 
+      if ($table.length) {
+        dataTable = $table.DataTable({
+          ajax: {
+            url: "{{ url('/clientes/dados') }}",
+            dataSrc: 'data'
+          },
+          columns: [
+            {
+              data: null,
+              orderable: false,
+              searchable: false,
+              className: 'select-checkbox',
+              render: function () {
+                return '<div class="form-check"><input class="form-check-input" type="checkbox"><label class="form-check-label"></label></div>';
+              }
+            },
+            { data: 'cliente_id' },
+            { data: 'cnpj_cpf' },
+            { data: 'razao_social' },
+            { data: 'telefone' },
+            { data: 'cidade' },
+            { data: 'ativo' },
+            { data: 'acoes' }
+          ],
+          language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json'
+          },
+          order: [[1, 'desc']]
+        });
+      }
+
+      $('#checkbox-select-all').on('click', function () {
+        if (!dataTable) {
+          return;
         }
-      ],
-      language: {
-          url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json'
-        },
-      order: [[1, 'asc']]
+        var rows = dataTable.rows({ search: 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+      });
     });
-  }
-
-  $('#checkbox-select-all').on('click', function() {
-    var rows = $table.DataTable().rows({ 'search': 'applied' }).nodes();
-    $('input[type="checkbox"]', rows).prop('checked', this.checked);
-    if (this.checked) {
-      $table.DataTable().rows().select();
-    } else {
-      $table.DataTable().rows().deselect();
-    }
-  });
-});
 
 </script>
 @endsection

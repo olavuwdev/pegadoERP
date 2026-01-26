@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
@@ -50,5 +51,13 @@ class ProdutoController extends Controller
 
     public function form(){
         return view('pages.produto.form');
+    }
+
+    public function conexao(){
+        DB::connection()->getPdo();
+        //select na tabela erp_clientes para testar a conexao
+        $clientes = DB::table('erp_clientes')->get();
+        dd($clientes);
+        return 'Conexão com o banco de dados realizada com sucesso!';
     }
 }

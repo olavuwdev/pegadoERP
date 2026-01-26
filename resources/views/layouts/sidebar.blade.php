@@ -5,7 +5,7 @@
                 <!-- User -->
                 <div class="sidenav-user text-nowrap border border-dashed rounded-3">
                     <a href="#!" class="sidenav-user-name d-flex align-items-center">
-                        <img src="assets/images/users/user-2.jpg" width="36" class="rounded-circle me-2 d-flex" alt="user-image">
+                        <img src="/assets/images/users/user-2.jpg" width="36" class="rounded-circle me-2 d-flex" alt="user-image">
                         <span>
                             <h5 class="my-0 fw-semibold">Adriano Lopes</h5>
                             <h6 class="my-0 text-muted">Socio</h6>
@@ -16,23 +16,23 @@
                 <!--- Sidenav Menu -->
                 <ul class="side-nav">
 
-                    <li class="side-nav-item">
-                        <a href="index.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('dashboard*') ? 'active' : '' }}">
+                        <a href="{{ url('/dashboard') }}" class="side-nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="circle-gauge"></i></span>
                             <span class="menu-text" data-lang="dashboard">Dashboard</span>
                         </a>
                     </li>
 
-                    <li class="side-nav-item">
-                        <a href="ton-ai.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('ton-ai*') ? 'active' : '' }}">
+                        <a href="{{ url('/ton-ai') }}" class="side-nav-link {{ Request::is('ton-ai*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="sparkles"></i></span>
                             <span class="menu-text"> Fale com AI </span>
                             <span class="badge text-bg-danger">New</span>
                         </a>
                     </li>
 
-                    <li class="side-nav-item">
-                        <a href="calendar.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('calendar*') ? 'active' : '' }}">
+                        <a href="{{ url('/calendar') }}" class="side-nav-link {{ Request::is('calendar*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="calendar"></i></span>
                             <span class="menu-text" data-lang="calendar"> Agenda </span>
                         </a>
@@ -42,46 +42,46 @@
 {{-- 
                     <li class="side-nav-title mt-2" data-lang="pages-title">Custom Pages</li>
  --}}
-                    <li class="side-nav-item">
-                        <a href="charts.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('vendas*') ? 'active' : '' }}">
+                        <a href="{{ url('/vendas') }}" class="side-nav-link {{ Request::is('vendas*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="shopping-cart" class=" fs-24"></i></span>
                             <span class="menu-text" data-lang="Vendas"> Vendas </span>
                         </a>
                     </li>
-                    <li class="side-nav-item">
-                        <a href="charts.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('compras*') ? 'active' : '' }}">
+                        <a href="{{ url('/compras') }}" class="side-nav-link {{ Request::is('compras*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="boxes" class=" fs-24"></i></span>
                             <span class="menu-text" data-lang="Compras"> Compras </span>
                         </a>
                     </li>
                     
-                    <li class="side-nav-item">
-                        <a href="charts.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('clientes*') ? 'active' : '' }}">
+                        <a href="{{ url('/clientes') }}" class="side-nav-link {{ Request::is('clientes*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="users-round"></i></span>
                             <span class="menu-text" data-lang="Clientes"> Clientes </span>
                         </a>
                     </li>
-                    <li class="side-nav-item">
-                        <a href="{{ url('/produto') }}" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('produto*') ? 'active' : '' }}">
+                        <a href="{{ url('/produto') }}" class="side-nav-link {{ Request::is('produto*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="box"></i></span>
                             <span class="menu-text" data-lang="Produtos"> Produtos </span>
                         </a>
                     </li>
                     </li>
-                    <li class="side-nav-item">
-                        <a href="charts.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('boletos*') ? 'active' : '' }}">
+                        <a href="{{ url('/boletos') }}" class="side-nav-link {{ Request::is('boletos*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="barcode"></i></span>
                             <span class="menu-text" data-lang="Boletos"> Boletos </span>
                         </a>
                     </li>
-                    <li class="side-nav-item">
-                        <a href="charts.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('cobrancas*') ? 'active' : '' }}">
+                        <a href="{{ url('/cobrancas') }}" class="side-nav-link {{ Request::is('cobrancas*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="banknote-arrow-down"></i></span>
                             <span class="menu-text" data-lang="Boletos"> Cobranças </span>
                         </a>
                     </li>
-                    <li class="side-nav-item">
-                        <a href="charts.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('pix*') ? 'active' : '' }}">
+                        <a href="{{ url('/pix') }}" class="side-nav-link {{ Request::is('pix*') ? 'active' : '' }}">
                             <span class="menu-icon"><svg style="width: 12px;" viewBox="10 10 175 175" xmlns="http://www.w3.org/2000/svg">
 							<g transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, 0, 0)">
                                     <path id="path2376_2_" d="M147.04,144.34c-7.02,0-13.6-2.7-18.57-7.67L101.7,109.9c-1.84-1.84-5.18-1.84-7.02,0L67.8,136.78   c-4.97,4.97-11.55,7.67-18.57,7.67h-5.29l34.01,34.01c10.58,10.58,27.85,10.58,38.43,0l34.11-34.11L147.04,144.34L147.04,144.34z" style="fill: #9a9ea5;"></path>
@@ -93,8 +93,8 @@
                         </a>
                     </li>
                     </li>
-                    <li class="side-nav-item">
-                        <a href="charts.html" class="side-nav-link">
+                    <li class="side-nav-item {{ Request::is('nfe-fiscal*') ? 'active' : '' }}">
+                        <a href="{{ url('/nfe-fiscal') }}" class="side-nav-link {{ Request::is('nfe-fiscal*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="file-code"></i></span>
                             <span class="menu-text" data-lang="Boletos"> NFe/ Fiscal </span>
                         </a>

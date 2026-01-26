@@ -3,28 +3,27 @@
 <html lang="pt-BR">
 
 
-<!-- Mirrored from coderthemes.com/vona/html/auth-sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Nov 2025 16:17:54 GMT -->
 <head>
     <meta charset="utf-8">
-    <title>Sign In | Vona - Responsive Bootstrap 5 Admin Dashboard</title>
+    <title>Login - PegadoERP </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="admin dashboard template on Themeforest. Perfect for building CRM, CMS, project management tools, and custom web apps with clean UI, responsive design, and powerful features.">
-    <meta name="keywords" content="Vona, Admin dashboard, Themeforest, HTML template,Shadcn, Bootstrap admin, CRM template, CMS template, responsive admin, web app UI, admin theme, best admin template">
-    <meta name="author" content="Coderthemes">
+    <meta name="description" content="Login do sistema PegadoERP. Acesse sua conta para gerenciar suas operações empresariais de forma eficiente e segura.">
+    <meta name="keywords" content="PegadoERP, login, sistema ERP, gestão empresarial, acesso seguro">
+    <meta name="author" content="OlavwuDev">
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
     <!-- Theme Config Js -->
-    <script src="assets/js/config.js"></script>
+    <script src="{{ asset('assets/js/config.js') }}"></script>
 
     <!-- Vendor css -->
-    <link href="assets/css/vendors.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/vendors.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- App css -->
-    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css">
 
-    <script src="assets/plugins/lucide/lucide.min.js"></script>
+    <script src="{{ asset('assets/plugins/lucide/lucide.min.js') }}"></script>
 
 </head>
 
@@ -37,48 +36,60 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="auth-brand mb-4">
-                                <a href="index.html" class="logo-dark">
+                                <a href="{{ url('/') }}" class="logo-dark">
                                     <span class="d-flex align-items-center gap-1">
                                         <span class="avatar avatar-xs rounded-circle text-bg-dark">
                                             <span class="avatar-title">
                                                 <i data-lucide="sparkles" class="fs-md"></i>
                                             </span>
                                         </span>
-                                        <span class="logo-text text-body fw-bold fs-xl">Vona</span>
+                                        <span class="logo-text text-body fw-bold fs-xl">PegadoERP</span>
                                     </span>
                                 </a>
-                                <a href="index.html" class="logo-light">
+                                <a href="{{ url('/') }}" class="logo-light">
                                     <span class="d-flex align-items-center gap-1">
                                         <span class="avatar avatar-xs rounded-circle text-bg-dark">
                                             <span class="avatar-title">
                                                 <i data-lucide="sparkles" class="fs-md"></i>
                                             </span>
                                         </span>
-                                        <span class="logo-text text-white fw-bold fs-xl">Vona</span>
+                                        <span class="logo-text text-white fw-bold fs-xl">PegadoERP</span>
                                     </span>
                                 </a>
-                                <p class="text-muted w-lg-75 mt-3">Let’s get you signed in. Enter your email and password to continue.</p>
+                                <p class="text-muted w-lg-75 mt-3">Faça o login. Informe o CPF, email e senha para continuar.</p>
                             </div>
-            
+                            @if ($errors->any())
+                                <div class="alert alert-danger" role="alert">
+                                    {{ $errors->first() }}
+                                </div>
+                            @endif
+
                             <div class="">
-                                <form action="https://coderthemes.com/vona/html/index.html">
+                                <form action="{{ route('login.attempt') }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="userCPFCNPJ" class="form-label">CPF/CNPJ <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="userCPFCNPJ" name="cpf_cnpj" value="{{ old('cpf_cnpj') }}" placeholder="000.000.000-00" autocomplete="off" required>
+                                        </div>
+                                    </div>
                                     <div class="mb-3">
                                         <label for="userEmail" class="form-label">Email address <span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="email" class="form-control" id="userEmail" placeholder="you@example.com" required>
+                                            <input type="email" class="form-control" id="userEmail" name="email" value="{{ old('email') }}" placeholder="you@example.com" autocomplete="email" required>
                                         </div>
                                     </div>
             
                                     <div class="mb-3">
                                         <label for="userPassword" class="form-label">Password <span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="userPassword" placeholder="••••••••" required>
+                                            <input type="password" class="form-control" id="userPassword" name="password" placeholder="********" autocomplete="current-password" required>
                                         </div>
                                     </div>
             
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div class="form-check">
-                                            <input class="form-check-input form-check-input-light fs-14" type="checkbox" id="rememberMe">
+                                            <input class="form-check-input form-check-input-light fs-14" type="checkbox" id="rememberMe" name="remember">
                                             <label class="form-check-label" for="rememberMe">Keep me signed in</label>
                                         </div>
                                         <a href="auth-reset-pass.html" class="text-decoration-underline link-offset-3 text-muted">Forgot Password?</a>
@@ -96,7 +107,7 @@
                         </div>
                     </div>
                     <p class="text-center text-muted mt-4 mb-0">
-                        © <script>document.write(new Date().getFullYear())</script> Vona — by <span class="fw-semibold">Coderthemes</span>
+                        © <script>document.write(new Date().getFullYear())</script> by <span class="fw-semibold">OlavwuDev</span>
                     </p>
                 </div>
             </div>
@@ -106,13 +117,12 @@
 
     <!-- end auth-fluid-->
     <!-- Vendor js -->
-    <script src="assets/js/vendors.min.js"></script>
+    <script src="{{ asset('assets/js/vendors.min.js') }}"></script>
 
     <!-- App js -->
-    <script src="assets/js/app.js"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 
 </body>
 
 
-<!-- Mirrored from coderthemes.com/vona/html/auth-sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Nov 2025 16:17:54 GMT -->
 </html>
