@@ -11,5 +11,15 @@
       "src": "/(.*)",
       "dest": "public/index.php"
     }
-  ]
+  ],
+   "env": {
+    "DB_URL": "@db_url",
+    "DB_HOST": "@db_host",
+    "DB_PORT": "@db_port",
+    "DB_DATABASE": "@db_database",
+    "DB_USERNAME": "@db_username",
+    "DB_PASSWORD": "@db_password"
+    
+    }
+
 }
