@@ -62,11 +62,26 @@
                         </a>
                     </li>
                     <li class="side-nav-item {{ Request::is('produto*') ? 'active' : '' }}">
-                        <a href="{{ url('/produto') }}" class="side-nav-link {{ Request::is('produto*') ? 'active' : '' }}">
+                        <a data-bs-toggle="collapse" href="#sidebarProdutos" aria-expanded="{{ Request::is('produto*') ? 'true' : 'false' }}" aria-controls="sidebarProdutos"
+                           class="side-nav-link {{ Request::is('produto*') ? 'active' : '' }}">
                             <span class="menu-icon"><i data-lucide="box"></i></span>
                             <span class="menu-text" data-lang="Produtos"> Produtos </span>
+                            <span class="menu-arrow"></span>
                         </a>
-                    </li>
+                        <div class="collapse {{ Request::is('produto*') ? 'show' : '' }}" id="sidebarProdutos">
+                            <ul class="sub-menu">
+                                <li class="side-nav-item">
+                                    <a href="{{ url('/produto') }}" class="side-nav-link {{ Request::is('produto') ? 'active' : '' }}">
+                                        <span class="menu-text">Listagem</span>
+                                    </a>
+                                </li>
+                                <li class="side-nav-item">
+                                    <a href="{{ url('/produto/novo') }}" class="side-nav-link {{ Request::is('produto/novo') ? 'active' : '' }}">
+                                        <span class="menu-text">Cadastrar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="side-nav-item {{ Request::is('boletos*') ? 'active' : '' }}">
                         <a href="{{ url('/boletos') }}" class="side-nav-link {{ Request::is('boletos*') ? 'active' : '' }}">

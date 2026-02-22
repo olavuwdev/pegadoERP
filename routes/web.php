@@ -19,9 +19,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.home.index');
     });
-    Route::get('/produto', [ProdutoController::class, 'index']);
-    Route::get('/produto/form', [ProdutoController::class, 'form']);
-    Route::get('/teste-conexao', [ProdutoController::class, 'conexao']);
+
+    Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
+    Route::get('/produto/dados', [ProdutoController::class, 'dados'])->name('produto.dados');
+    Route::get('/produto/novo', [ProdutoController::class, 'create'])->name('produto.create');
+    Route::get('/produto/{produto}/editar', [ProdutoController::class, 'edit'])->name('produto.edit');
+    Route::post('/produto', [ProdutoController::class, 'store'])->name('produto.store');
+    Route::put('/produto/{produto}', [ProdutoController::class, 'update'])->name('produto.update');
 
     //Rotas de clientes, fornecedor, transportador
     Route::get('clientes/dados', [ClienteController::class, 'datatable'])->name('clientes.datatable');
