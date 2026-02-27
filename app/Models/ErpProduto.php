@@ -12,12 +12,12 @@ class ErpProduto extends Model
     protected $table = 'erp_produto';
 
     protected $fillable = [
-        'tipo',
         'nome',
         'codigo_sku',
         'codigo_barras',
         'descricao',
         'marca',
+        'marca_id',
         'categoria_id',
         'preco_custo',
         'preco_venda',
@@ -53,8 +53,18 @@ class ErpProduto extends Model
         'cst_ipi',
         'codigo_enquadramento_ipi',
         'aliquota_ipi',
+        'aliquota_ibs',
+        'reducao_bc_ibs',
+        'aliquota_cbs',
+        'reducao_bc_cbs',
+        'sujeito_imposto_seletivo',
+        'aliquota_imposto_seletivo',
+        'regime_tributario',
         'observacoes',
     ];
+
+    const CREATED_AT = 'criado_em';
+    const UPDATED_AT = 'atualizado_em';
 
     protected function casts(): array
     {
@@ -78,6 +88,12 @@ class ErpProduto extends Model
             'aliquota_cofins' => 'decimal:2',
             'base_calculo_cofins' => 'decimal:4',
             'aliquota_ipi' => 'decimal:2',
+            'aliquota_ibs' => 'decimal:2',
+            'reducao_bc_ibs' => 'decimal:2',
+            'aliquota_cbs' => 'decimal:2',
+            'reducao_bc_cbs' => 'decimal:2',
+            'sujeito_imposto_seletivo' => 'boolean',
+            'aliquota_imposto_seletivo' => 'decimal:2',
             'ativo' => 'boolean',
             'origem_mercadoria' => 'integer',
         ];
@@ -91,6 +107,23 @@ class ErpProduto extends Model
     public function imagemPrincipal()
     {
         return $this->hasOne(ErpProdutoImagem::class, 'produto_id')->where('imagem_principal', true);
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(ErpCategoria::class, 'categoria_id');
+    }
+
+    public function marcaRelation()
+    {
+        return $this->belongsTo(ErpMarca::class, 'marca_id');
+    }
+
+    public function fornecedores()
+    {
+        return $this->belongsToMany(Cliente::class, 'erp_produto_fornecedor', 'produto_id', 'fornecedor_id')
+            ->withPivot(['codigo_fornecedor', 'preco_fornecedor', 'prazo_entrega_dias', 'principal'])
+            ->withTimestamps('created_at', 'updated_at');
     }
 
     public function scopeAtivo($query)

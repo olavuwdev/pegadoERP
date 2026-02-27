@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ErpCategoria;
+use App\Models\ErpMarca;
 use App\Models\ErpProduto;
 use App\Models\ErpProdutoImagem;
 use Illuminate\Http\Request;
@@ -31,7 +33,6 @@ class ProdutoController extends Controller
         $query = ErpProduto::query()
             ->select([
                 'id',
-                'tipo',
                 'nome',
                 'codigo_sku',
                 'codigo_barras',
@@ -46,12 +47,6 @@ class ProdutoController extends Controller
         if ($ativo !== null && $ativo !== '') {
             $query->where('ativo', (int) $ativo === 1);
         }
-
-        $tipo = trim((string) $request->input('tipo', ''));
-        if ($tipo !== '') {
-            $query->where('tipo', $tipo);
-        }
-
         $ncm = preg_replace('/\D/', '', (string) $request->input('ncm', ''));
         if (!empty($ncm)) {
             $query->where('ncm', 'like', $ncm . '%');
@@ -95,7 +90,6 @@ class ProdutoController extends Controller
 
             return [
                 'id' => $produto->id,
-                'tipo' => e($produto->tipo),
                 'codigo_sku' => e($produto->codigo_sku),
                 'nome' => e($produto->nome),
                 'codigo_barras' => e($produto->codigo_barras ?? '-'),
@@ -125,18 +119,26 @@ class ProdutoController extends Controller
 
     public function create()
     {
-        return view('pages.produto.create-legacy');
+        $categorias = ErpCategoria::ativo()->orderBy('nome')->get();
+        $marcas = ErpMarca::ativo()->orderBy('nome')->get();
+        $produto = null;
+
+        return view('pages.produto.form', compact('produto', 'categorias', 'marcas'));
     }
 
     public function edit(ErpProduto $produto)
     {
         $produto->load([
-            'imagens' => function ($query) {
-                $query->orderBy('ordem')->orderBy('id');
-            },
+            'imagens' => fn($q) => $q->orderBy('ordem')->orderBy('id'),
+            'fornecedores',
+            'categoria',
+            'marcaRelation',
         ]);
 
-        return view('pages.produto.form', compact('produto'));
+        $categorias = ErpCategoria::ativo()->orderBy('nome')->get();
+        $marcas = ErpMarca::ativo()->orderBy('nome')->get();
+
+        return view('pages.produto.form', compact('produto', 'categorias', 'marcas'));
     }
 
     public function store(Request $request)
@@ -148,6 +150,7 @@ class ProdutoController extends Controller
                 $payload = $this->produtoPayload($validated);
                 $produto = ErpProduto::query()->create($payload);
                 $this->syncImages($request, $produto);
+                $this->syncFornecedores($request, $produto);
 
                 return $produto;
             });
@@ -166,6 +169,7 @@ class ProdutoController extends Controller
 
             return response()->json([
                 'message' => 'Nao foi possivel salvar o produto.',
+                'error' => $exception->getMessage(),
             ], 500);
         }
     }
@@ -184,6 +188,7 @@ class ProdutoController extends Controller
                 $produto->save();
 
                 $this->syncImages($request, $produto);
+                $this->syncFornecedores($request, $produto);
             });
 
             return response()->json([
@@ -200,8 +205,31 @@ class ProdutoController extends Controller
 
             return response()->json([
                 'message' => 'Nao foi possivel atualizar o produto.',
+                'error' => $exception->getMessage(),
             ], 500);
         }
+    }
+
+    private function syncFornecedores(Request $request, ErpProduto $produto): void
+    {
+        $fornecedores = $request->input('fornecedores', []);
+        $syncData = [];
+
+        foreach ($fornecedores as $item) {
+            $fornecedorId = (int) ($item['fornecedor_id'] ?? 0);
+            if ($fornecedorId <= 0) {
+                continue;
+            }
+
+            $syncData[$fornecedorId] = [
+                'codigo_fornecedor' => $item['codigo_fornecedor'] ?? null,
+                'preco_fornecedor' => $this->toDecimal($item['preco_fornecedor'] ?? null),
+                'prazo_entrega_dias' => !empty($item['prazo_entrega_dias']) ? (int) $item['prazo_entrega_dias'] : null,
+                'principal' => (bool) ($item['principal'] ?? false),
+            ];
+        }
+
+        $produto->fornecedores()->sync($syncData);
     }
 
     private function updateStatus(Request $request, ErpProduto $produto)
@@ -250,7 +278,6 @@ class ProdutoController extends Controller
         $produtoId = $produto?->id;
 
         $validator = Validator::make($normalized, [
-            'tipo' => ['required', Rule::in(['PRODUTO', 'SERVICO'])],
             'nome' => ['required', 'string', 'max:255'],
             'codigo_sku' => [
                 'required',
@@ -261,7 +288,8 @@ class ProdutoController extends Controller
             'codigo_barras' => ['nullable', 'regex:/^\d{8,14}$/'],
             'descricao' => ['nullable', 'string'],
             'marca' => ['nullable', 'string', 'max:150'],
-            'categoria_id' => ['nullable', 'integer', 'min:1'],
+            'marca_id' => ['nullable', 'integer', 'exists:erp_marcas,id'],
+            'categoria_id' => ['nullable', 'integer', 'exists:erp_categorias,id'],
 
             'preco_custo' => ['required', 'numeric', 'min:0'],
             'preco_venda' => ['required', 'numeric', 'min:0'],
@@ -280,6 +308,7 @@ class ProdutoController extends Controller
             'origem_mercadoria' => ['required', 'integer', 'between:0,8'],
             'ex_tipi' => ['nullable', 'string', 'max:5'],
             'codigo_beneficio_fiscal' => ['nullable', 'string', 'max:20'],
+            'regime_tributario' => ['nullable', Rule::in(['SIMPLES', 'LUCRO_PRESUMIDO', 'LUCRO_REAL'])],
 
             'cst_icms' => ['nullable', 'string', 'max:3'],
             'csosn' => ['nullable', 'string', 'max:3'],
@@ -301,7 +330,23 @@ class ProdutoController extends Controller
             'codigo_enquadramento_ipi' => ['nullable', 'string', 'max:5'],
             'aliquota_ipi' => ['nullable', 'numeric', 'between:0,100'],
 
+            // Reforma Tributária - IBS/CBS/IS
+            'aliquota_ibs' => ['nullable', 'numeric', 'between:0,100'],
+            'reducao_bc_ibs' => ['nullable', 'numeric', 'between:0,100'],
+            'aliquota_cbs' => ['nullable', 'numeric', 'between:0,100'],
+            'reducao_bc_cbs' => ['nullable', 'numeric', 'between:0,100'],
+            'sujeito_imposto_seletivo' => ['nullable', 'boolean'],
+            'aliquota_imposto_seletivo' => ['nullable', 'numeric', 'between:0,100'],
+
             'observacoes' => ['nullable', 'string'],
+
+            // Fornecedores (array de objetos)
+            'fornecedores' => ['nullable', 'array'],
+            'fornecedores.*.fornecedor_id' => ['required', 'integer', 'exists:erp_clientes,id'],
+            'fornecedores.*.codigo_fornecedor' => ['nullable', 'string', 'max:100'],
+            'fornecedores.*.preco_fornecedor' => ['nullable', 'numeric', 'min:0'],
+            'fornecedores.*.prazo_entrega_dias' => ['nullable', 'integer', 'min:0'],
+            'fornecedores.*.principal' => ['nullable', 'boolean'],
 
             'imagens' => ['nullable', 'array', 'max:' . self::MAX_IMAGENS],
             'imagens.*' => ['file', 'mimes:jpg,jpeg,png,webp', 'max:' . self::MAX_IMAGEM_KB],
@@ -504,6 +549,11 @@ class ProdutoController extends Controller
             'aliquota_cofins',
             'base_calculo_cofins',
             'aliquota_ipi',
+            'aliquota_ibs',
+            'reducao_bc_ibs',
+            'aliquota_cbs',
+            'reducao_bc_cbs',
+            'aliquota_imposto_seletivo',
         ];
     }
 

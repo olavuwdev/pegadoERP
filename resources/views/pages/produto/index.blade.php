@@ -23,15 +23,6 @@
                             </select>
                         </div>
 
-                        <div class="col-md-2">
-                            <label for="filtro_tipo" class="form-label">Tipo</label>
-                            <select id="filtro_tipo" class="form-select">
-                                <option value="">Todos</option>
-                                <option value="PRODUTO">Produto</option>
-                                <option value="SERVICO">Servico</option>
-                            </select>
-                        </div>
-
                         <div class="col-md-3">
                             <label for="filtro_ncm" class="form-label">NCM</label>
                             <input type="text" id="filtro_ncm" class="form-control" maxlength="8" placeholder="Ex.: 84713012">
@@ -48,7 +39,6 @@
                                 <tr>
                                     <th>SKU</th>
                                     <th>Nome</th>
-                                    <th>Tipo</th>
                                     <th>NCM</th>
                                     <th class="text-end">Preco venda</th>
                                     <th class="text-end">Estoque</th>
@@ -80,14 +70,12 @@ $(function () {
             url: '{{ route('produto.dados') }}',
             data: function (d) {
                 d.ativo = $('#filtro_ativo').val();
-                d.tipo = $('#filtro_tipo').val();
                 d.ncm = $('#filtro_ncm').val();
             }
         },
         columns: [
             { data: 'codigo_sku', name: 'codigo_sku' },
             { data: 'nome', name: 'nome' },
-            { data: 'tipo', name: 'tipo' },
             { data: 'ncm', name: 'ncm' },
             { data: 'preco_venda', name: 'preco_venda', className: 'text-end' },
             { data: 'quantidade_estoque', name: 'quantidade_estoque', className: 'text-end' },
@@ -111,7 +99,7 @@ $(function () {
         }
     });
 
-    $('#btn-filtrar, #filtro_ativo, #filtro_tipo').on('click change', function () {
+    $('#btn-filtrar, #filtro_ativo').on('click change', function () {
         table.ajax.reload();
     });
 

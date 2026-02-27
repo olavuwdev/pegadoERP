@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\FornecedorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'showLogin'])
@@ -20,6 +23,7 @@ Route::middleware('auth')->group(function () {
         return view('pages.home.index');
     });
 
+    // ── Produto ──
     Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
     Route::get('/produto/dados', [ProdutoController::class, 'dados'])->name('produto.dados');
     Route::get('/produto/novo', [ProdutoController::class, 'create'])->name('produto.create');
@@ -30,12 +34,23 @@ Route::middleware('auth')->group(function () {
     //Rotas de clientes, fornecedor, transportador
     Route::get('clientes/dados', [ClienteController::class, 'datatable'])->name('clientes.datatable');
     Route::resource('clientes', 'App\Http\Controllers\ClienteController');
-    Route::resource('fornecedores', 'App\Http\Controllers\FornecedorController');
     Route::resource('transportadores', 'App\Http\Controllers\TransportadorController');
 
-    /* APIs */
+    // ── API Auxiliares (AJAX inline) ──
     Route::prefix('api')->group(function () {
         Route::get('/cep/{cep}', 'App\Http\Controllers\Api\CepController@buscarCep');
         Route::post('/cpf-cnpj/', 'App\Http\Controllers\ClienteController@verificaCpfCnpj');
+
+        // Categorias
+        Route::get('/categorias', [CategoriaController::class, 'listar'])->name('api.categorias.listar');
+        Route::post('/categorias', [CategoriaController::class, 'store'])->name('api.categorias.store');
+
+        // Marcas
+        Route::get('/marcas', [MarcaController::class, 'listar'])->name('api.marcas.listar');
+        Route::post('/marcas', [MarcaController::class, 'store'])->name('api.marcas.store');
+
+        // Fornecedores (busca para Select2)
+        Route::get('/fornecedores/buscar', [FornecedorController::class, 'buscar'])->name('api.fornecedores.buscar');
+        Route::post('/fornecedores', [FornecedorController::class, 'storeInline'])->name('api.fornecedores.store');
     });
 });
