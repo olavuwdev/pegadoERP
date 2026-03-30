@@ -1,190 +1,144 @@
 @extends('layouts.list')
 
 @section('list')
-    <div class="container-fluid" style="margin-top: 20px;">
+<div class="container-fluid" style="margin-top: 20px;">
+    <div class="row justify-content-center">
+        <div class="col-xxl-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <h5 class="card-title mb-0">Produtos</h5>
+                    <a href="{{ url('/produto/novo') }}" class="btn btn-primary">
+                        <i class="ti ti-plus me-1"></i> Cadastrar Produto
+                    </a>
+                </div>
 
-        <div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1">
-            <!-- Today's Prompts Widget -->
-            <div class="col">
-                <div class="card card-h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h5 class="text-uppercase">Today's Prompts</h5>
-                            </div>
-                            <div>
-                                <i data-lucide="message-square" class="text-muted fs-24 svg-sw-10"></i>
-                            </div>
+                <div class="card-body">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-2">
+                            <label for="filtro_ativo" class="form-label">Status</label>
+                            <select id="filtro_ativo" class="form-select">
+                                <option value="">Todos</option>
+                                <option value="1">Ativos</option>
+                                <option value="0">Inativos</option>
+                            </select>
                         </div>
 
-                        <div class="mb-3">
-                            <canvas id="promptsChart" height="60"></canvas>
+                        <div class="col-md-3">
+                            <label for="filtro_ncm" class="form-label">NCM</label>
+                            <input type="text" id="filtro_ncm" class="form-control" maxlength="8" placeholder="Ex.: 84713012">
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <span class="text-muted">Today</span>
-                                <div class="fw-semibold"><span data-target="1,245">1,245</span> prompts</div>
-                            </div>
-                            <div class="text-end">
-                                <span class="text-muted">Yesterday</span>
-                                <div class="fw-semibold"><span data-target="1,110">1,110</span> <i class="ti ti-arrow-up"></i></div>
-                            </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="button" id="btn-filtrar" class="btn btn-outline-primary w-100">Aplicar filtros</button>
                         </div>
                     </div>
-                    <div class="card-footer text-muted text-center">
-                        Prompt volume increased by <strong>12%</strong> today
+
+                    <div class="table-responsive">
+                        <table id="tabela-produtos" class="table table-striped align-middle mb-0 w-100">
+                            <thead class="thead-sm text-uppercase fs-xxs">
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Nome</th>
+                                    <th>NCM</th>
+                                    <th class="text-end">Preco venda</th>
+                                    <th class="text-end">Estoque</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Acoes</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
-
-            <!-- Active Users Widget -->
-            <div class="col">
-                <div class="card card-h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="text-uppercase mb-3">Active Users</h5>
-                                <h3 class="mb-0 fw-normal"><span data-target="342">342</span></h3>
-                                <p class="text-muted mb-2">In the last hour</p>
-                            </div>
-                            <div>
-                                <i data-lucide="users" class="text-muted fs-24 svg-sw-10"></i>
-                            </div>
-                        </div>
-
-                        <div class="progress progress-lg mb-3">
-                            <div class="progress-bar" style="width: 68%;" role="progressbar"></div>
-                        </div>
-
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <span class="text-muted">Avg. Session Time</span>
-                                <h5 class="mb-0">4m 12s</h5>
-                            </div>
-                            <div class="text-end">
-                                <span class="text-muted">Returning Users</span>
-                                <h5 class="mb-0">54.9%</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-muted text-center">
-                        52 new users joined today
-                    </div>
-                </div>
-            </div>
-
-            <!-- Response Accuracy Widget -->
-            <div class="col">
-                <div class="card card-h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h5 class="text-uppercase">Response Accuracy</h5>
-                            </div>
-                            <div>
-                                <i data-lucide="activity" class="text-muted fs-24 svg-sw-10"></i>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center">
-                            <canvas id="accuracyChart" height="120" width="120"></canvas>
-                        </div>
-                    </div>
-                    <div class="card-footer text-muted text-center">
-                        Current accuracy: <strong>94.3%</strong>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Token Consumption Widget -->
-            <div class="col">
-                <div class="card card-h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h5 class="text-uppercase">Token Usage</h5>
-                            </div>
-                            <div>
-                                <i data-lucide="cpu" class="text-muted fs-24 svg-sw-10"></i>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <canvas id="tokenChart" height="60"></canvas>
-                        </div>
-
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <span class="text-muted">Today</span>
-                                <div class="fw-semibold"><span data-target="920,400">920,400</span> tokens</div>
-                            </div>
-                            <div class="text-end">
-                                <span class="text-muted">Yesterday</span>
-                                <div class="fw-semibold"><span data-target="865,100">865,100</span> <i class="ti ti-arrow-up"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-muted text-center">
-                        Token usage up <strong>6.4%</strong> from yesterday
-                    </div>
-                </div>
-            </div>
-        </div> <!-- end row-->
-        <div class="row justify-content-center">
-                    <div class="col-xxl-12">
-                        <div class="card">
-                            <div class="card-header justify-content-between">
-                                <h5 class="card-title"> Exportar </h5>
-                                
-                            </div>
-
-                            <div class="card-body">
-                                <table data-tables="export-data" class="table table-striped align-middle mt-2 mb-0">
-                                    <thead class="thead-sm text-uppercase fs-xxs">
-                                        <tr>
-                                            <th>Produto</th>
-                                            <th>Referencia</th>
-                                            <th>Preço</th>
-                                            <th>Change</th>
-                                            <th>Volume</th>
-                                            <th>Market Cap</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($produtos as $p)
-                                        <tr>
-                                            <td>{{ $p['nome'] }}</td>
-                                            <td>{{ $p['referencia'] }}</td>
-                                            <td>{{ $p['valor'] }}</td>
-                                            <td>{{ $p['change'] ?? 'N/A' }}</td>
-                                            <td>{{ $p['volume'] ?? 'N/A' }}</td>
-                                            <td>{{ $p['market_cap'] ?? 'N/A' }}</td>
-                                            <td>{{ $p['status'] ?? 'Ativo' }}</td>
-                                            <td class="text-center">
-                                                <div class="dropdown text-muted">
-                                                    <a href="#" class="dropdown-toggle drop-arrow-none fs-xxl link-reset p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="ti ti-dots-vertical"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end" style="">
-                                                        <a href="#" class="dropdown-item"><i class="ti ti-eye me-1"></i> Visualizar</a>
-                                                        <a href="#" class="dropdown-item"><i class="ti ti-edit me-1"></i> Editar</a>
-                                                        <a href="#" class="dropdown-item text-danger"><i class="ti ti-trash me-1"></i> Deletar</a>
-                                                    </div>
-                                                </div>
-                                                </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-
-                        
-                    </div>
         </div>
-
     </div>
+</div>
+@endsection
+
+@section('scripts')
+@parent
+<script>
+$(function () {
+    if ($.fn.mask) {
+        $('#filtro_ncm').mask('00000000');
+    }
+
+    const table = $('#tabela-produtos').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '{{ route('produto.dados') }}',
+            data: function (d) {
+                d.ativo = $('#filtro_ativo').val();
+                d.ncm = $('#filtro_ncm').val();
+            }
+        },
+        columns: [
+            { data: 'codigo_sku', name: 'codigo_sku' },
+            { data: 'nome', name: 'nome' },
+            { data: 'ncm', name: 'ncm' },
+            { data: 'preco_venda', name: 'preco_venda', className: 'text-end' },
+            { data: 'quantidade_estoque', name: 'quantidade_estoque', className: 'text-end' },
+            { data: 'status', name: 'status', orderable: false, searchable: false },
+            { data: 'acoes', name: 'acoes', orderable: false, searchable: false, className: 'text-center' }
+        ],
+        pageLength: 25,
+        order: [[1, 'asc']],
+        language: {
+            search: 'Buscar:',
+            lengthMenu: 'Mostrar _MENU_',
+            info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+            infoEmpty: 'Nenhum registro encontrado',
+            zeroRecords: 'Nenhum registro encontrado',
+            paginate: {
+                first: 'Primeiro',
+                last: 'Ultimo',
+                next: 'Proximo',
+                previous: 'Anterior'
+            }
+        }
+    });
+
+    $('#btn-filtrar, #filtro_ativo').on('click change', function () {
+        table.ajax.reload();
+    });
+
+    $('#filtro_ncm').on('keyup', function (e) {
+        if (e.key === 'Enter') {
+            table.ajax.reload();
+        }
+    });
+
+    $(document).on('click', '.js-toggle-status', function (e) {
+        e.preventDefault();
+
+        const produtoId = $(this).data('id');
+        const ativo = $(this).data('ativo');
+
+        $.ajax({
+            url: `/produto/${produtoId}`,
+            method: 'POST',
+            data: {
+                _method: 'PUT',
+                _status_only: 1,
+                ativo: ativo,
+                _token: '{{ csrf_token() }}'
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                showAlert(response.message || 'Status atualizado com sucesso!', 'success');
+                table.ajax.reload(null, false);
+            },
+            error: function (xhr) {
+                const message = (xhr.responseJSON && (xhr.responseJSON.message || (xhr.responseJSON.errors && Object.values(xhr.responseJSON.errors)[0][0])))
+                    ? (xhr.responseJSON.message || Object.values(xhr.responseJSON.errors)[0][0])
+                    : 'Erro ao alterar status do produto.';
+                showAlert(message, 'danger');
+            }
+        });
+    });
+});
+</script>
 @endsection
