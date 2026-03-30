@@ -564,7 +564,7 @@ $(function () {
         $('#forn_cpf_cnpj').mask('00.000.000/0000-00');
 
         $('.js-percent').mask('##0,00', { reverse: true });
-        $('.js-decimal-4').mask('000.000.000.000.000,0000', { reverse: true });
+        $('.js-decimal-4').mask('0.00' { reverse: true });
     }
 
     // ==================== SELECT2 ====================

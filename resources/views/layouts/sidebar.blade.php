@@ -37,6 +37,29 @@
                             <span class="menu-text" data-lang="calendar"> Agenda </span>
                         </a>
                     </li>
+                    <li class="side-nav-item {{ Request::is('produto*') ? 'active' : '' }}">
+                        <a data-bs-toggle="collapse" href="#sidebarProdutos" aria-expanded="{{ Request::is('produto*') ? 'true' : 'false' }}" aria-controls="sidebarProdutos"
+                           class="side-nav-link {{ Request::is('produto*') ? 'active' : '' }}">
+                            <span class="menu-icon"><i data-lucide=""></i></span>
+                            <span class="menu-text" data-lang="Produtos"> Cadastros </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse {{ Request::is('usuarios*') ? 'show' : '' }}" id="sidebarUsuarios">
+                            <ul class="sub-menu">
+                                <li class="side-nav-item {{ Request::is('usuarios*') ? 'active' : '' }}">
+                                    <a href="{{ url('/') }}" class="side-nav-link {{ Request::is('calendar*') ? 'active' : '' }}">
+                                        <span class="menu-icon"><i data-lucide="users"></i></span>
+                                        <span class="menu-text" data-lang="users"> Usuarios </span>
+                                    </a>
+                                </li>
+                                <li class="side-nav-item">
+                                    <a href="{{ url('/produto/novo') }}" class="side-nav-link {{ Request::is('produto/novo') ? 'active' : '' }}">
+                                        <span class="menu-text">Cadastrar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
                     
 {{-- 

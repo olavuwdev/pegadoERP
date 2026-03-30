@@ -74,14 +74,14 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="userEmail" class="form-label">Email address <span class="text-danger">*</span></label>
+                                        <label for="userEmail" class="form-label">Endereço de e-mail <span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="email" class="form-control" id="userEmail" name="email" value="{{ old('email') }}" placeholder="you@example.com" autocomplete="email" required>
+                                            <input type="email" class="form-control" id="userEmail" name="email" value="{{ old('email') }}" placeholder="voce@exemplo.com" autocomplete="email" required>
                                         </div>
                                     </div>
             
                                     <div class="mb-3">
-                                        <label for="userPassword" class="form-label">Password <span class="text-danger">*</span></label>
+                                        <label for="userPassword" class="form-label">Senha <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <input type="password" class="form-control" id="userPassword" name="password" placeholder="********" autocomplete="current-password" required>
                                         </div>
@@ -90,18 +90,18 @@
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div class="form-check">
                                             <input class="form-check-input form-check-input-light fs-14" type="checkbox" id="rememberMe" name="remember">
-                                            <label class="form-check-label" for="rememberMe">Keep me signed in</label>
+                                            <label class="form-check-label" for="rememberMe">Manter-me conectado</label>
                                         </div>
-                                        <a href="auth-reset-pass.html" class="text-decoration-underline link-offset-3 text-muted">Forgot Password?</a>
+                                        <a href="auth-reset-pass.html" class="text-decoration-underline link-offset-3 text-muted">Esqueceu a senha?</a>
                                     </div>
             
                                     <div class="d-grid">
-                                        <button type="submit" class="btn btn-primary fw-semibold py-2">Sign In</button>
+                                        <button type="submit" class="btn btn-primary fw-semibold py-2">Entrar</button>
                                     </div>
                                 </form>
             
                                 <p class="text-muted text-center mt-4 mb-0">
-                                    New here? <a href="auth-sign-up.html" class="text-decoration-underline link-offset-3 fw-semibold">Create an account</a>
+                                    Novo por aqui? <a href="auth-sign-up.html" class="text-decoration-underline link-offset-3 fw-semibold">Crie uma conta</a>
                                 </p>
                             </div>
                         </div>
@@ -121,6 +121,34 @@
 
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+
+    <script>
+        (function () {
+            var cpfInput      = document.getElementById('userCPFCNPJ');
+            var emailInput    = document.getElementById('userEmail');
+            var rememberCheck = document.getElementById('rememberMe');
+            var form          = document.querySelector('form');
+
+            var saved = localStorage.getItem('pegado_remember');
+            if (saved) {
+                var data = JSON.parse(saved);
+                cpfInput.value   = data.cpf_cnpj || '';
+                emailInput.value = data.email    || '';
+                rememberCheck.checked = true;
+            }
+
+            form.addEventListener('submit', function () {
+                if (rememberCheck.checked) {
+                    localStorage.setItem('pegado_remember', JSON.stringify({
+                        cpf_cnpj: cpfInput.value,
+                        email:    emailInput.value
+                    }));
+                } else {
+                    localStorage.removeItem('pegado_remember');
+                }
+            });
+        })();
+    </script>
 
 </body>
 
