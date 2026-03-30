@@ -17,11 +17,11 @@ Route::post('/login', [AuthController::class, 'login'])
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout')
     ->middleware('auth');
-Route::get('/', function () {
-    return 'Laravel funcionando!';
-});
 
 Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('pages.home.index');
+    });
 
     // ── Produto ──
     Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
